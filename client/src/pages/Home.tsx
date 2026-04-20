@@ -128,16 +128,22 @@ export default function Home() {
               feedback to ace your final exam.
             </motion.p>
             <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-4">
-              <Link href="/#chapters">
-                <span className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-[#1e3a5f] text-white font-semibold text-sm hover:bg-[#162d4a] transition-all shadow-lg shadow-[#1e3a5f]/20 hover:shadow-xl hover:shadow-[#1e3a5f]/25">
-                  <BookOpen size={18} />
-                  Explore Chapters
-                  <ArrowRight
-                    size={16}
-                    className="group-hover:translate-x-0.5 transition-transform"
-                  />
-                </span>
-              </Link>
+              <button
+                onClick={() => {
+                  const chaptersSection = document.getElementById('chapters');
+                  if (chaptersSection) {
+                    chaptersSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }}
+                className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-[#1e3a5f] text-white font-semibold text-sm hover:bg-[#162d4a] transition-all shadow-lg shadow-[#1e3a5f]/20 hover:shadow-xl hover:shadow-[#1e3a5f]/25 cursor-pointer border-none"
+              >
+                <BookOpen size={18} />
+                Explore Chapters
+                <ArrowRight
+                  size={16}
+                  className="group-hover:translate-x-0.5 transition-transform"
+                />
+              </button>
               <Link href="/quiz">
                 <span className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border-2 border-[#1e3a5f]/15 text-[#1e3a5f] font-semibold text-sm hover:bg-[#1e3a5f]/5 hover:border-[#1e3a5f]/25 transition-all">
                   <ClipboardCheck size={18} />
