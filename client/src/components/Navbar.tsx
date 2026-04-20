@@ -37,7 +37,7 @@ export default function Navbar() {
 
   const navLinks = [
     { href: "/", label: "Home", icon: Home },
-    { href: "/#chapters", label: "Chapters", icon: BookOpen },
+    { href: "/chapters", label: "Chapters", icon: BookOpen },
     { href: "/quiz", label: "Practice Quiz", icon: ClipboardCheck },
   ];
 
@@ -65,7 +65,7 @@ export default function Navbar() {
             const isActive =
               link.href === "/"
                 ? location === "/"
-                : location.startsWith(link.href.replace("/#", "/"));
+                : location.startsWith(link.href);
             return (
               <Link key={link.href} href={link.href}>
                 <span
