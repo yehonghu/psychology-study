@@ -1,5 +1,5 @@
 /*
- * Mindscape Design: Chapter detail page with color-coded header
+ * Neural Garden design: Chapter detail page with color-coded header
  * Knowledge concept cards with flip animation, search filter, progress tracking
  */
 import { useParams, Link } from "wouter";
@@ -49,7 +49,17 @@ function ConceptCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: Math.min(index * 0.03, 0.3) }}
-      className="perspective-[1000px] h-56 cursor-pointer group"
+      whileHover={{ y: -5 }}
+      className="[perspective:1000px] h-56 cursor-pointer group"
+      role="button"
+      tabIndex={0}
+      aria-label={`${term}: ${flipped ? "definition shown. Activate to hide definition." : "activate to reveal definition."}`}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          setFlipped((value) => !value);
+        }
+      }}
     >
       <div
         className={`relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] ${
@@ -74,12 +84,12 @@ function ConceptCard({
                 <CheckCircle2 size={18} style={{ color }} className="shrink-0" />
               )}
             </div>
-            <h4 className="font-[var(--font-display)] font-700 text-[15px] text-[#1a1a2e] leading-snug">
+            <h4 className="font-[var(--font-display)] font-bold text-[15px] text-[#26304f] leading-snug">
               {term}
             </h4>
           </div>
           <div className="flex items-center justify-between mt-auto pt-3">
-            <p className="text-[11px] text-[#2d3436]/35 font-medium">
+            <p className="text-[11px] text-[#66728f]/35 font-medium">
               Tap to reveal
             </p>
             <div
@@ -171,14 +181,14 @@ export default function ChapterPage() {
 
   if (!chapter) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#faf8f5]">
+      <div className="min-h-screen flex items-center justify-center bg-[#f8f7ff]">
         <Navbar />
         <div className="text-center pt-20">
-          <h1 className="text-2xl font-bold text-[#1a1a2e]">
+          <h1 className="text-2xl font-bold text-[#26304f]">
             Chapter not found
           </h1>
           <Link href="/">
-            <span className="text-[#1e3a5f] underline mt-4 inline-block">
+            <span className="text-[#6253bd] underline mt-4 inline-block">
               Back to Home
             </span>
           </Link>
@@ -196,8 +206,9 @@ export default function ChapterPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#faf8f5]">
+    <div className="neural-home min-h-screen">
       <Navbar />
+      <div aria-hidden="true" className="neural-grain" />
 
       {/* Chapter Hero */}
       <section
@@ -221,7 +232,7 @@ export default function ChapterPage() {
               transition={{ duration: 0.5 }}
             >
               <Link href="/">
-                <span className="inline-flex items-center gap-2 text-sm text-[#2d3436]/45 hover:text-[#2d3436]/75 transition-colors mb-6">
+                <span className="inline-flex items-center gap-2 text-sm text-[#66728f]/45 hover:text-[#66728f]/75 transition-colors mb-6">
                   <ArrowLeft size={16} />
                   Back to all chapters
                 </span>
@@ -233,22 +244,22 @@ export default function ChapterPage() {
                 Week {chapter.week}
               </div>
               <h1
-                className="font-[var(--font-display)] text-3xl sm:text-4xl lg:text-5xl font-800 tracking-tight leading-tight"
+                className="font-[var(--font-display)] text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight"
                 style={{ color: chapter.color }}
               >
                 {chapter.icon} {chapter.title}
               </h1>
-              <p className="mt-4 text-base text-[#2d3436]/55 leading-relaxed">
+              <p className="mt-4 text-base text-[#66728f]/55 leading-relaxed">
                 {chapter.subtitle}
               </p>
 
               {/* Stats row */}
               <div className="mt-6 flex items-center gap-6">
-                <div className="flex items-center gap-2 text-sm text-[#2d3436]/45">
+                <div className="flex items-center gap-2 text-sm text-[#66728f]/45">
                   <Layers size={16} />
                   {chapter.keyConcepts.length} concepts
                 </div>
-                <div className="flex items-center gap-2 text-sm text-[#2d3436]/45">
+                <div className="flex items-center gap-2 text-sm text-[#66728f]/45">
                   <CheckCircle2 size={16} />
                   {masteredCount} mastered
                 </div>
@@ -257,14 +268,21 @@ export default function ChapterPage() {
               {/* Progress bar */}
               <div className="mt-5">
                 <div className="flex items-center justify-between text-xs mb-1.5">
-                  <span className="text-[#2d3436]/40 font-medium">
+                  <span className="text-[#66728f]/40 font-medium">
                     Progress
                   </span>
                   <span style={{ color: chapter.color }} className="font-bold">
                     {progressPercent}%
                   </span>
                 </div>
-                <div className="h-2 bg-white/60 rounded-full overflow-hidden">
+                <div
+                  className="h-2 bg-white/60 rounded-full overflow-hidden"
+                  role="progressbar"
+                  aria-valuenow={progressPercent}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-label={`Mastery progress: ${masteredCount} of ${chapter.keyConcepts.length} concepts`}
+                >
                   <motion.div
                     className="h-full rounded-full"
                     style={{ backgroundColor: chapter.color }}
@@ -319,14 +337,15 @@ export default function ChapterPage() {
             <div className="relative flex-1 max-w-md">
               <Search
                 size={16}
-                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#2d3436]/30"
+                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#66728f]/30"
               />
               <input
                 type="text"
+                aria-label="Search concepts by term or definition"
                 placeholder="Search concepts..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#faf8f5] border border-black/5 text-sm text-[#1a1a2e] placeholder:text-[#2d3436]/30 focus:outline-none focus:border-[#1e3a5f]/20 focus:ring-2 focus:ring-[#1e3a5f]/5 transition-all"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#f8f7ff] border border-black/5 text-sm text-[#26304f] placeholder:text-[#66728f]/30 focus:outline-none focus:border-[#6253bd]/20 focus:ring-2 focus:ring-[#6253bd]/5 transition-all"
               />
             </div>
 
@@ -339,7 +358,7 @@ export default function ChapterPage() {
                   className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all capitalize ${
                     filterMode === mode
                       ? "text-white shadow-sm"
-                      : "bg-[#faf8f5] text-[#2d3436]/50 hover:text-[#2d3436]/70"
+                      : "bg-[#f8f7ff] text-[#66728f]/50 hover:text-[#66728f]/70"
                   }`}
                   style={
                     filterMode === mode
@@ -389,8 +408,8 @@ export default function ChapterPage() {
                 animate={{ opacity: 1 }}
                 className="text-center py-16"
               >
-                <Search size={40} className="mx-auto text-[#2d3436]/15 mb-4" />
-                <p className="text-sm text-[#2d3436]/40">
+                <Search size={40} className="mx-auto text-[#66728f]/15 mb-4" />
+                <p className="text-sm text-[#66728f]/40">
                   No concepts match your search or filter.
                 </p>
               </motion.div>
@@ -414,10 +433,10 @@ export default function ChapterPage() {
             >
               <ClipboardCheck size={24} style={{ color: chapter.color }} />
             </div>
-            <h3 className="font-[var(--font-display)] font-700 text-lg text-[#1a1a2e] mb-2">
+            <h3 className="font-[var(--font-display)] font-bold text-lg text-[#26304f] mb-2">
               Test This Chapter
             </h3>
-            <p className="text-sm text-[#2d3436]/50 mb-6">
+            <p className="text-sm text-[#66728f]/50 mb-6">
               Ready to test your knowledge? Take the practice quiz covering all
               modules.
             </p>
@@ -442,13 +461,13 @@ export default function ChapterPage() {
         <div className="container flex items-center justify-between">
           {prevChapter ? (
             <Link href={`/chapter/${prevChapter.id}`}>
-              <span className="flex items-center gap-3 text-sm font-medium text-[#2d3436]/55 hover:text-[#2d3436] transition-colors group">
+              <span className="flex items-center gap-3 text-sm font-medium text-[#66728f]/55 hover:text-[#66728f] transition-colors group">
                 <ArrowLeft
                   size={16}
                   className="group-hover:-translate-x-0.5 transition-transform"
                 />
                 <span>
-                  <span className="block text-[10px] text-[#2d3436]/35 uppercase tracking-wide font-semibold">
+                  <span className="block text-[10px] text-[#66728f]/35 uppercase tracking-wide font-semibold">
                     Previous
                   </span>
                   {prevChapter.title}
@@ -460,9 +479,9 @@ export default function ChapterPage() {
           )}
           {nextChapter ? (
             <Link href={`/chapter/${nextChapter.id}`}>
-              <span className="flex items-center gap-3 text-sm font-medium text-[#2d3436]/55 hover:text-[#2d3436] transition-colors text-right group">
+              <span className="flex items-center gap-3 text-sm font-medium text-[#66728f]/55 hover:text-[#66728f] transition-colors text-right group">
                 <span>
-                  <span className="block text-[10px] text-[#2d3436]/35 uppercase tracking-wide font-semibold">
+                  <span className="block text-[10px] text-[#66728f]/35 uppercase tracking-wide font-semibold">
                     Next
                   </span>
                   {nextChapter.title}
@@ -480,19 +499,17 @@ export default function ChapterPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[#1e3a5f]/8 py-10 bg-[#faf8f5]">
+      <footer className="neural-footer border-t py-10">
         <div className="container">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <span className="w-7 h-7 rounded-lg bg-[#1e3a5f] flex items-center justify-center text-white text-xs font-bold">
-                ψ
-              </span>
-              <span className="font-[var(--font-display)] text-sm font-700 text-[#1a1a2e]">
+              <span className="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-[#8a75df] to-[#5e9cde] text-sm font-bold text-white">ψ</span>
+              <span className="font-[var(--font-display)] text-[15px] font-extrabold text-[#26304f]">
                 PsychMind
               </span>
             </div>
-            <p className="text-xs text-[#2d3436]/40">
-              Principles of Psychology — Complete Final Review Study Hub
+            <p className="text-[12px] text-[#66728f]">
+              Psychology study hub · Contributor: Yehong Hu (James Hu)
             </p>
           </div>
         </div>

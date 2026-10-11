@@ -1,6 +1,11 @@
 # PsychMind
 
+[![CI](https://github.com/yehonghu/psychology-study/actions/workflows/ci.yml/badge.svg)](https://github.com/yehonghu/psychology-study/actions/workflows/ci.yml)
+[![Last commit](https://img.shields.io/github/last-commit/yehonghu/psychology-study)](https://github.com/yehonghu/psychology-study/commits/main)
+
 > An interactive psychology study hub for moving from concept recall to confident practice.
+
+**Live demo:** [yehonghu.github.io/psychology-study](https://yehonghu.github.io/psychology-study/)
 
 PsychMind is a React and TypeScript learning environment for foundational psychology. The upgraded **Neural Garden** experience treats each module as part of a connected field of knowledge: learners can open concise concept cards, record mastery, and use a focused quiz to identify what deserves another review session.
 

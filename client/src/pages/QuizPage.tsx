@@ -1,5 +1,5 @@
 /*
- * Mindscape Design: Interactive quiz with polished UI
+ * Neural Garden design: Interactive quiz with polished UI
  * Chapter filter, shuffle, progress tracking, animated score, review mode
  */
 import { useState, useMemo, useCallback } from "react";
@@ -28,7 +28,7 @@ import { chapters } from "@/data/chapters";
 type QuizMode = "setup" | "active" | "result";
 
 function getChapterColor(chapterId: string): string {
-  return chapters.find((c) => c.id === chapterId)?.color || "#1e3a5f";
+  return chapters.find((c) => c.id === chapterId)?.color || "#6253bd";
 }
 
 function getChapterTitle(chapterId: string): string {
@@ -138,11 +138,12 @@ export default function QuizPage() {
   // ===== SETUP SCREEN =====
   if (mode === "setup") {
     return (
-      <div className="min-h-screen bg-[#faf8f5]">
+      <div className="neural-home min-h-screen">
         <Navbar />
+        <div aria-hidden="true" className="neural-grain" />
         <div className="container pt-24 pb-16 max-w-3xl mx-auto">
           <Link href="/">
-            <span className="inline-flex items-center gap-2 text-sm text-[#2d3436]/45 hover:text-[#2d3436]/75 transition-colors mb-8">
+            <span className="inline-flex items-center gap-2 text-sm text-[#66728f]/45 hover:text-[#66728f]/75 transition-colors mb-8">
               <ChevronLeft size={16} />
               Back to Home
             </span>
@@ -155,14 +156,14 @@ export default function QuizPage() {
             {/* Header */}
             <div className="mb-8">
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-11 h-11 rounded-xl bg-[#1e3a5f] flex items-center justify-center">
+                <div className="w-11 h-11 rounded-xl bg-[#6253bd] flex items-center justify-center">
                   <Target size={22} className="text-white" />
                 </div>
                 <div>
-                  <h1 className="font-[var(--font-display)] text-2xl sm:text-3xl font-800 text-[#1a1a2e]">
+                  <h1 className="font-[var(--font-display)] text-2xl sm:text-3xl font-extrabold text-[#26304f]">
                     Practice Quiz
                   </h1>
-                  <p className="text-sm text-[#2d3436]/50">
+                  <p className="text-sm text-[#66728f]/50">
                     {quizQuestions.length} questions across{" "}
                     {chapters.length} modules
                   </p>
@@ -174,10 +175,10 @@ export default function QuizPage() {
               {/* Left: Config */}
               <div className="lg:col-span-2 space-y-6">
                 {/* Chapter filter */}
-                <div className="bg-white rounded-2xl p-6 border border-black/5 shadow-sm">
+                <div className="neural-surface rounded-2xl p-6">
                   <div className="flex items-center gap-2 mb-4">
-                    <Filter size={16} className="text-[#1e3a5f]" />
-                    <h3 className="font-[var(--font-display)] font-700 text-sm text-[#1a1a2e]">
+                    <Filter size={16} className="text-[#6253bd]" />
+                    <h3 className="font-[var(--font-display)] font-bold text-sm text-[#26304f]">
                       Select Chapters
                     </h3>
                   </div>
@@ -207,12 +208,12 @@ export default function QuizPage() {
                             style={
                               selectedChapters.has(ch.id)
                                 ? { color: ch.color }
-                                : { color: "#2d3436" }
+                                : { color: "#66728f" }
                             }
                           >
                             Week {ch.week}
                           </p>
-                          <p className="text-[10px] text-[#2d3436]/50 truncate">
+                          <p className="text-[10px] text-[#66728f]/50 truncate">
                             {ch.title}
                           </p>
                         </div>
@@ -225,15 +226,15 @@ export default function QuizPage() {
                 </div>
 
                 {/* Question count + shuffle */}
-                <div className="bg-white rounded-2xl p-6 border border-black/5 shadow-sm">
+                <div className="neural-surface rounded-2xl p-6">
                   <div className="flex items-center gap-2 mb-4">
-                    <Grid3X3 size={16} className="text-[#1e3a5f]" />
-                    <h3 className="font-[var(--font-display)] font-700 text-sm text-[#1a1a2e]">
+                    <Grid3X3 size={16} className="text-[#6253bd]" />
+                    <h3 className="font-[var(--font-display)] font-bold text-sm text-[#26304f]">
                       Quiz Settings
                     </h3>
                   </div>
 
-                  <label className="block text-xs font-semibold text-[#2d3436]/60 mb-3 uppercase tracking-wide">
+                  <label className="block text-xs font-semibold text-[#66728f]/60 mb-3 uppercase tracking-wide">
                     Number of Questions
                   </label>
                   <div className="flex gap-2 flex-wrap mb-5">
@@ -243,8 +244,8 @@ export default function QuizPage() {
                         onClick={() => setQuestionCount(n)}
                         className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
                           questionCount === n
-                            ? "bg-[#1e3a5f] text-white shadow-md shadow-[#1e3a5f]/15"
-                            : "bg-[#1e3a5f]/5 text-[#1e3a5f] hover:bg-[#1e3a5f]/10"
+                            ? "bg-[#6253bd] text-white shadow-md shadow-[#6253bd]/15"
+                            : "bg-[#6253bd]/5 text-[#6253bd] hover:bg-[#6253bd]/10"
                         }`}
                       >
                         {n}
@@ -258,7 +259,7 @@ export default function QuizPage() {
                     className={`flex items-center gap-3 px-5 py-3 rounded-xl text-sm font-medium transition-all w-full ${
                       shuffled
                         ? "bg-[#d4770b]/10 text-[#d4770b] border border-[#d4770b]/20"
-                        : "bg-[#faf8f5] text-[#2d3436]/55 hover:text-[#2d3436]/75 border border-black/5"
+                        : "bg-[#f8f7ff] text-[#66728f]/55 hover:text-[#66728f]/75 border border-black/5"
                     }`}
                   >
                     <Shuffle size={16} />
@@ -272,31 +273,31 @@ export default function QuizPage() {
               {/* Right: Summary + Start */}
               <div className="space-y-4">
                 <div className="bg-white rounded-2xl p-6 border border-black/5 shadow-sm sticky top-24">
-                  <h3 className="font-[var(--font-display)] font-700 text-sm text-[#1a1a2e] mb-4">
+                  <h3 className="font-[var(--font-display)] font-bold text-sm text-[#26304f] mb-4">
                     Quiz Summary
                   </h3>
                   <div className="space-y-3 mb-6">
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-[#2d3436]/50">Available</span>
-                      <span className="font-bold text-[#1a1a2e]">
+                      <span className="text-[#66728f]/50">Available</span>
+                      <span className="font-bold text-[#26304f]">
                         {availableCount} questions
                       </span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-[#2d3436]/50">Selected</span>
-                      <span className="font-bold text-[#1a1a2e]">
+                      <span className="text-[#66728f]/50">Selected</span>
+                      <span className="font-bold text-[#26304f]">
                         {Math.min(questionCount, availableCount)} questions
                       </span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-[#2d3436]/50">Chapters</span>
-                      <span className="font-bold text-[#1a1a2e]">
+                      <span className="text-[#66728f]/50">Chapters</span>
+                      <span className="font-bold text-[#26304f]">
                         {selectedChapters.size} of {chapters.length}
                       </span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-[#2d3436]/50">Order</span>
-                      <span className="font-bold text-[#1a1a2e]">
+                      <span className="text-[#66728f]/50">Order</span>
+                      <span className="font-bold text-[#26304f]">
                         {shuffled ? "Random" : "Sequential"}
                       </span>
                     </div>
@@ -305,7 +306,7 @@ export default function QuizPage() {
                   <button
                     onClick={startQuiz}
                     disabled={availableCount === 0}
-                    className="w-full py-4 rounded-xl bg-[#1e3a5f] text-white font-bold text-sm hover:bg-[#1e3a5f]/90 transition-all shadow-lg shadow-[#1e3a5f]/20 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full py-4 rounded-xl bg-[#6253bd] text-white font-bold text-sm hover:bg-[#6253bd]/90 transition-all shadow-lg shadow-[#6253bd]/20 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     <Zap size={16} />
                     Start Quiz
@@ -341,8 +342,9 @@ export default function QuizPage() {
     });
 
     return (
-      <div className="min-h-screen bg-[#faf8f5]">
+      <div className="neural-home min-h-screen">
         <Navbar />
+        <div aria-hidden="true" className="neural-grain" />
         <div className="container pt-24 pb-16 max-w-3xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -365,15 +367,15 @@ export default function QuizPage() {
                 {grade.emoji}
               </motion.div>
               <h1
-                className="font-[var(--font-display)] text-3xl font-800 mb-2"
+                className="font-[var(--font-display)] text-3xl font-extrabold mb-2"
                 style={{ color: grade.color }}
               >
                 {grade.label}
               </h1>
-              <p className="text-[#2d3436]/55 mb-8">
+              <p className="text-[#66728f]/55 mb-8">
                 You scored{" "}
-                <span className="font-bold text-[#1a1a2e]">{score}</span> out of{" "}
-                <span className="font-bold text-[#1a1a2e]">
+                <span className="font-bold text-[#26304f]">{score}</span> out of{" "}
+                <span className="font-bold text-[#26304f]">
                   {activeQuestions.length}
                 </span>
               </p>
@@ -411,7 +413,7 @@ export default function QuizPage() {
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
                   <motion.span
-                    className="font-[var(--font-display)] text-4xl font-800"
+                    className="font-[var(--font-display)] text-4xl font-extrabold"
                     style={{ color: grade.color }}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -419,7 +421,7 @@ export default function QuizPage() {
                   >
                     {percentage}%
                   </motion.span>
-                  <span className="text-[10px] text-[#2d3436]/40 font-semibold uppercase tracking-wider mt-1">
+                  <span className="text-[10px] text-[#66728f]/40 font-semibold uppercase tracking-wider mt-1">
                     Score
                   </span>
                 </div>
@@ -428,26 +430,26 @@ export default function QuizPage() {
               {/* Stats row */}
               <div className="grid grid-cols-3 gap-4 max-w-sm mx-auto">
                 <div className="text-center">
-                  <div className="text-xl font-800 text-[#2d6a4f]">
+                  <div className="text-xl font-extrabold text-[#2d6a4f]">
                     {score}
                   </div>
-                  <div className="text-[10px] text-[#2d3436]/40 font-semibold uppercase tracking-wide">
+                  <div className="text-[10px] text-[#66728f]/40 font-semibold uppercase tracking-wide">
                     Correct
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-xl font-800 text-[#c44536]">
+                  <div className="text-xl font-extrabold text-[#c44536]">
                     {activeQuestions.length - score}
                   </div>
-                  <div className="text-[10px] text-[#2d3436]/40 font-semibold uppercase tracking-wide">
+                  <div className="text-[10px] text-[#66728f]/40 font-semibold uppercase tracking-wide">
                     Wrong
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-xl font-800 text-[#1e3a5f]">
+                  <div className="text-xl font-extrabold text-[#6253bd]">
                     {activeQuestions.length}
                   </div>
-                  <div className="text-[10px] text-[#2d3436]/40 font-semibold uppercase tracking-wide">
+                  <div className="text-[10px] text-[#66728f]/40 font-semibold uppercase tracking-wide">
                     Total
                   </div>
                 </div>
@@ -459,7 +461,7 @@ export default function QuizPage() {
               <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-black/5 mb-8">
                 <div className="flex items-center gap-2 mb-6">
                   <BookOpen size={18} className="text-[#c44536]" />
-                  <h2 className="font-[var(--font-display)] font-700 text-base text-[#1a1a2e]">
+                  <h2 className="font-[var(--font-display)] font-bold text-base text-[#26304f]">
                     Review Incorrect Answers
                   </h2>
                 </div>
@@ -471,7 +473,7 @@ export default function QuizPage() {
                           className="w-3 h-3 rounded-sm"
                           style={{ backgroundColor: getChapterColor(chId) }}
                         />
-                        <span className="text-xs font-bold text-[#2d3436]/60 uppercase tracking-wide">
+                        <span className="text-xs font-bold text-[#66728f]/60 uppercase tracking-wide">
                           {getChapterTitle(chId)}
                         </span>
                       </div>
@@ -479,9 +481,9 @@ export default function QuizPage() {
                         {qs.map((q) => (
                           <div
                             key={q.id}
-                            className="p-4 rounded-xl bg-[#faf8f5] border border-black/5"
+                            className="p-4 rounded-xl bg-[#f8f7ff] border border-black/5"
                           >
-                            <p className="text-sm font-medium text-[#1a1a2e] mb-2">
+                            <p className="text-sm font-medium text-[#26304f] mb-2">
                               {q.question}
                             </p>
                             <div className="flex flex-col gap-1">
@@ -495,7 +497,7 @@ export default function QuizPage() {
                                 <span className="font-semibold">Correct:</span>{" "}
                                 {q.options[q.correctIndex]}
                               </p>
-                              <p className="text-xs text-[#2d3436]/50 mt-1 italic">
+                              <p className="text-xs text-[#66728f]/50 mt-1 italic">
                                 {q.explanation}
                               </p>
                             </div>
@@ -510,7 +512,7 @@ export default function QuizPage() {
 
             {/* All answers quick view */}
             <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-black/5 mb-8">
-              <h2 className="font-[var(--font-display)] font-700 text-base text-[#1a1a2e] mb-4">
+              <h2 className="font-[var(--font-display)] font-bold text-base text-[#26304f] mb-4">
                 All Answers
               </h2>
               <div className="grid grid-cols-6 sm:grid-cols-10 gap-2">
@@ -539,13 +541,13 @@ export default function QuizPage() {
                   setMode("setup");
                   setSelectedAnswers({});
                 }}
-                className="flex-1 py-4 rounded-xl bg-white border border-black/5 text-[#1e3a5f] font-bold text-sm hover:bg-[#1e3a5f]/5 transition-all flex items-center justify-center gap-2 shadow-sm"
+                className="flex-1 py-4 rounded-xl bg-white border border-black/5 text-[#6253bd] font-bold text-sm hover:bg-[#6253bd]/5 transition-all flex items-center justify-center gap-2 shadow-sm"
               >
                 <RotateCcw size={16} />
                 Try Again
               </button>
               <Link href="/" className="flex-1">
-                <span className="flex items-center justify-center gap-2 py-4 rounded-xl bg-[#1e3a5f] text-white font-bold text-sm hover:bg-[#1e3a5f]/90 transition-all shadow-lg shadow-[#1e3a5f]/15">
+                <span className="flex items-center justify-center gap-2 py-4 rounded-xl bg-[#6253bd] text-white font-bold text-sm hover:bg-[#6253bd]/90 transition-all shadow-lg shadow-[#6253bd]/15">
                   <BookOpen size={16} />
                   Back to Study
                 </span>
@@ -562,8 +564,9 @@ export default function QuizPage() {
   const chapterColor = getChapterColor(currentQ.chapter);
 
   return (
-    <div className="min-h-screen bg-[#faf8f5]">
+    <div className="neural-home min-h-screen">
       <Navbar />
+      <div aria-hidden="true" className="neural-grain" />
       <div className="container pt-24 pb-16 max-w-3xl mx-auto">
         {/* Top bar */}
         <div className="flex items-center justify-between mb-5">
@@ -578,21 +581,21 @@ export default function QuizPage() {
                 setSelectedAnswers({});
               }
             }}
-            className="flex items-center gap-2 text-sm text-[#2d3436]/45 hover:text-[#2d3436]/75 transition-colors"
+            className="flex items-center gap-2 text-sm text-[#66728f]/45 hover:text-[#66728f]/75 transition-colors"
           >
             <ChevronLeft size={16} />
             Quit
           </button>
           <div className="flex items-center gap-4">
-            <span className="text-xs font-semibold text-[#2d3436]/40">
+            <span className="text-xs font-semibold text-[#66728f]/40">
               {answeredCount}/{activeQuestions.length} answered
             </span>
             <button
               onClick={() => setShowNavigator(!showNavigator)}
               className={`p-2 rounded-lg transition-all ${
                 showNavigator
-                  ? "bg-[#1e3a5f] text-white"
-                  : "bg-white text-[#2d3436]/50 hover:text-[#2d3436] border border-black/5"
+                  ? "bg-[#6253bd] text-white"
+                  : "bg-white text-[#66728f]/50 hover:text-[#66728f] border border-black/5"
               }`}
             >
               <Grid3X3 size={16} />
@@ -602,7 +605,7 @@ export default function QuizPage() {
 
         {/* Progress bar */}
         <div className="mb-6">
-          <div className="flex items-center justify-between text-[11px] text-[#2d3436]/45 mb-2 font-medium">
+          <div className="flex items-center justify-between text-[11px] text-[#66728f]/45 mb-2 font-medium">
             <span>
               Question {currentIndex + 1} of {activeQuestions.length}
             </span>
@@ -631,7 +634,7 @@ export default function QuizPage() {
               className="mb-6 overflow-hidden"
             >
               <div className="bg-white rounded-2xl p-5 border border-black/5 shadow-sm">
-                <p className="text-xs font-semibold text-[#2d3436]/40 mb-3 uppercase tracking-wide">
+                <p className="text-xs font-semibold text-[#66728f]/40 mb-3 uppercase tracking-wide">
                   Jump to question
                 </p>
                 <div className="grid grid-cols-10 gap-2">
@@ -651,12 +654,12 @@ export default function QuizPage() {
                         }}
                         className={`aspect-square rounded-lg flex items-center justify-center text-xs font-bold transition-all ${
                           isCurrent
-                            ? "bg-[#1e3a5f] text-white ring-2 ring-[#1e3a5f]/30"
+                            ? "bg-[#6253bd] text-white ring-2 ring-[#6253bd]/30"
                             : answered
                             ? correct
                               ? "bg-[#2d6a4f]/12 text-[#2d6a4f]"
                               : "bg-[#c44536]/12 text-[#c44536]"
-                            : "bg-[#faf8f5] text-[#2d3436]/40 hover:bg-[#1e3a5f]/5"
+                            : "bg-[#f8f7ff] text-[#66728f]/40 hover:bg-[#6253bd]/5"
                         }`}
                       >
                         {i + 1}
@@ -691,7 +694,7 @@ export default function QuizPage() {
                 {getChapterTitle(currentQ.chapter)}
               </span>
 
-              <h2 className="font-[var(--font-display)] text-lg sm:text-xl font-700 text-[#1a1a2e] mb-7 leading-relaxed">
+              <h2 className="font-[var(--font-display)] text-lg sm:text-xl font-bold text-[#26304f] mb-7 leading-relaxed">
                 {currentQ.question}
               </h2>
 
@@ -703,9 +706,9 @@ export default function QuizPage() {
                   const answered = hasAnswered;
 
                   let optionClasses =
-                    "border-[#e8e4df] hover:border-[#1e3a5f]/25 hover:bg-[#1e3a5f]/3";
+                    "border-[#e8e4df] hover:border-[#6253bd]/25 hover:bg-[#6253bd]/3";
                   let letterClasses =
-                    "bg-[#1e3a5f]/8 text-[#1e3a5f]";
+                    "bg-[#6253bd]/8 text-[#6253bd]";
 
                   if (answered) {
                     if (isCorrectOption) {
@@ -739,7 +742,7 @@ export default function QuizPage() {
                           String.fromCharCode(65 + i)
                         )}
                       </span>
-                      <span className="text-[#1a1a2e] leading-relaxed">
+                      <span className="text-[#26304f] leading-relaxed">
                         {opt}
                       </span>
                     </motion.button>
@@ -788,7 +791,7 @@ export default function QuizPage() {
           <button
             onClick={goPrev}
             disabled={currentIndex === 0}
-            className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium text-[#2d3436]/55 hover:text-[#2d3436] hover:bg-white transition-all disabled:opacity-25 disabled:cursor-not-allowed"
+            className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium text-[#66728f]/55 hover:text-[#66728f] hover:bg-white transition-all disabled:opacity-25 disabled:cursor-not-allowed"
           >
             <ArrowLeft size={16} />
             Previous
@@ -799,7 +802,7 @@ export default function QuizPage() {
               onClick={finishQuiz}
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
-              className="flex items-center gap-2 px-7 py-3 rounded-xl bg-[#1e3a5f] text-white text-sm font-bold hover:bg-[#1e3a5f]/90 transition-all shadow-lg shadow-[#1e3a5f]/15"
+              className="flex items-center gap-2 px-7 py-3 rounded-xl bg-[#6253bd] text-white text-sm font-bold hover:bg-[#6253bd]/90 transition-all shadow-lg shadow-[#6253bd]/15"
             >
               <Trophy size={16} />
               See Results
@@ -808,7 +811,7 @@ export default function QuizPage() {
             <button
               onClick={goNext}
               disabled={currentIndex === activeQuestions.length - 1}
-              className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium text-[#2d3436]/55 hover:text-[#2d3436] hover:bg-white transition-all disabled:opacity-25 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium text-[#66728f]/55 hover:text-[#66728f] hover:bg-white transition-all disabled:opacity-25 disabled:cursor-not-allowed"
             >
               Next
               <ArrowRight size={16} />

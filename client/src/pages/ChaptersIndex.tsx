@@ -1,6 +1,6 @@
 /**
  * Chapters Index Page
- * Mindscape Design: Display all chapters in a grid with navigation
+ * Neural Garden design: Display all chapters in a grid with navigation
  */
 import { motion } from "framer-motion";
 import { Link } from "wouter";
@@ -24,12 +24,14 @@ const fadeUp = {
 
 export default function ChaptersIndex() {
   return (
-    <div className="min-h-screen bg-[#faf8f5]">
+    <div className="neural-home min-h-screen">
       <Navbar />
+      <div aria-hidden="true" className="neural-grain" />
 
       {/* Header */}
-      <section className="pt-20 pb-12">
-        <div className="container">
+      <section className="relative overflow-hidden pt-24 pb-12 sm:pt-28">
+        <div aria-hidden="true" className="pointer-events-none absolute right-[-12rem] top-[-6rem] h-[28rem] w-[28rem] rounded-full bg-[#d8caff]/40 blur-[110px]" />
+        <div className="container relative">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -37,16 +39,17 @@ export default function ChaptersIndex() {
           >
             <motion.div variants={fadeUp} className="mb-8">
               <Link href="/">
-                <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#1e3a5f] hover:gap-2 transition-all mb-6 cursor-pointer">
+                <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#6253bd] hover:gap-2 transition-all mb-6 cursor-pointer">
                   <ArrowLeft size={16} />
                   Back to Home
                 </span>
               </Link>
-              <h1 className="font-[var(--font-display)] text-4xl sm:text-5xl font-800 text-[#1a1a2e] tracking-tight mb-4">
-                All Chapters
+              <span className="neural-label">Nine modules, one field</span>
+              <h1 className="neural-display mt-5 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
+                All chapters
               </h1>
-              <p className="text-lg text-[#2d3436]/65 max-w-2xl">
-                Explore all 9 weeks of psychology course materials. Each chapter contains interactive concept cards and detailed explanations.
+              <p className="text-lg text-[#66728f] max-w-2xl leading-relaxed">
+                Nine weeks of psychology, arranged as one connected field. Each module holds interactive concept cards and detailed explanations — choose the one that needs your attention now.
               </p>
             </motion.div>
           </motion.div>
@@ -64,10 +67,10 @@ export default function ChaptersIndex() {
             className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
           >
             {chapters.map((ch) => (
-              <motion.div key={ch.id} variants={fadeUp}>
+              <motion.div key={ch.id} variants={fadeUp} whileHover={{ y: -7 }} transition={{ type: "spring", stiffness: 260, damping: 22 }}>
                 <Link href={`/chapter/${ch.id}`}>
                   <div
-                    className="group relative rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl cursor-pointer border border-black/[0.03] h-full"
+                    className="neural-module group relative rounded-2xl overflow-hidden transition-shadow duration-300 hover:shadow-[0_18px_40px_rgba(72,81,140,0.12)] cursor-pointer h-full"
                     style={{ backgroundColor: ch.colorLight }}
                   >
                     {/* Color bar */}
@@ -92,16 +95,16 @@ export default function ChaptersIndex() {
                         </span>
                       </div>
                       <h3
-                        className="font-[var(--font-display)] text-lg font-700 mb-1.5 leading-snug"
+                        className="font-[var(--font-display)] text-lg font-bold mb-1.5 leading-snug"
                         style={{ color: ch.color }}
                       >
                         {ch.title}
                       </h3>
-                      <p className="text-sm text-[#2d3436]/55 mb-5 line-clamp-2 flex-grow">
+                      <p className="text-sm text-[#66728f]/55 mb-5 line-clamp-2 flex-grow">
                         {ch.subtitle}
                       </p>
                       <div className="flex items-center justify-between pt-4 border-t border-black/[0.05]">
-                        <span className="text-xs text-[#2d3436]/40 font-medium">
+                        <span className="text-xs text-[#66728f]/40 font-medium">
                           {ch.keyConcepts.length} key concepts
                         </span>
                         <span
